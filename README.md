@@ -1,104 +1,62 @@
-#cartridge_tax
+cartridge-vat
+=============
 
-An implementation of sales tax for [Cartridge](http://cartridge.jupo.org/). 
-
-A flat sales or value-added tax can be applied to in-state or all sales. Tax can optionally be applied to shipping costs.
-
-For US-based sites, [TaxCloud.net](http://taxcloud.net/)'s tax lookup web service is optional. 
-
-## DISCLAIMER
-
-This should work out-of-the-box for simple cases. However, your particular implementation
-of Cartridge may require rewriting this or merging components into or out of other projects.
+VAT Management for Cartridge/Mezzanine
 
 ## Installation
 
 Working in your project's [virtualenv](http://www.virtualenv.org/en/latest/index.html):
 ```
-pip install cartridge-tax
-```
-or
-```
-git clone https://github.com/kenbolton/cartridge-tax.git
+git clone https://github.com/thomasWajs/cartridge-vat.git
 cd cartridge-tax
 python setup.py install
 ```
 
-Add `'cartridge_tax'` to your settings.INSTALLED_APPS before
-`'cartridge.shop'`.
-
-Set up your tax information in the admin configuration settings,
-/admin/conf/setting/. Note the value you put in 'Shop State'. You will
-need to inject a "choices" dict into
-`cartridge.shop.forms.OrderForm['fields']['shipping_detail_state']`. The
-values in that dict should match the style in 'Shop State'. See the
-example below in `Custom OrderForm`.
+Add `'cartridge_vat'` to your settings.INSTALLED_APPS.
 
 ### Billing/Shipping and Order Handlers
 
-Add the following to your settings:
+Configure your order in the settings, which will add the VAT to each product and to the
+order :
+```
+SHOP_HANDLER_ORDER = "cartridge_vat.checkout.vat_order_handler"
+```
+
+If you wish to display the VAT from the shipping step, you can also add :
 ```
 SHOP_HANDLER_BILLING_SHIPPING = \
-                "cartridge_tax.checkout.tax_billship_handler"
-
-SHOP_HANDLER_ORDER = "cartridge_tax.checkout.tax_order_handler"
+                "cartridge_vat.checkout.vat_billship_handler"
 ```
 
 ### Extra model fields
 
-Below is an example of settings.EXTRA_MODEL_FIELDS. Be sure to add these
-tuples to your own EXTRA_MODEL_FIELDS.
-
+Add some extra fields to your settings :
 ```
 EXTRA_MODEL_FIELDS = (
         (
-            "cartridge.shop.models.Product.tic",
-            "CharField",
-            (u"Taxability Information Code",),
-            {"max_length":"5", "blank": True, "default":"00000", },
-            ),
+            "cartridge.shop.models.Product.tax_rate",
+            "DecimalField",
+            (u"Tax Rate",),
+            {"null": True, "blank": True, "max_digits": 10, "decimal_places": 2},
+        ),
+        (
+            "cartridge.shop.models.CartItem.tax_rate",
+            "DecimalField",
+            (u"Tax Rate",),
+            {"null": True, "blank": True, "max_digits": 10, "decimal_places": 2},
+         ),
+        (
+            "cartridge.shop.models.OrderItem.tax_rate",
+            "DecimalField",
+            (u"Tax Rate",),
+            {"null": True, "blank": True, "max_digits": 10, "decimal_places": 2},
+         ),
         (
             "cartridge.shop.models.Order.tax_total",
             "DecimalField",
             (u"Tax Total",),
-            {"null": True, "blank": True, "max_digits": 10,
-                    "decimal_places": 2},
-            ),
-        (
-            "cartridge.shop.models.Order.tax_type",
-            "CharField",
-            (u"Tax Type",),
-            {"blank": True, "max_length": "20", "default":"Flat sales tax"},
-            ),
+            {"null": True, "blank": True, "max_digits": 10, "decimal_places": 2},
+        ),
 )
 ```
-
-### Custom OrderForm
-
-An example for the US is at `cartridge_tax.forms.USOrderForm`. This
-implementation uses the two-letter state abbreviation, so put e.g. NY as
-the value of `TAX_SHOP_STATE` in /admin/conf/settings/. Add to
-your `settings.py`:
-`SHOP_CHECKOUT_FORM_CLASS = 'cartridge_tax.forms.USOrderForm'`
-
-`USOrderForm` can be used as an example for developing `OrderForm`
-subclasses for other tax jurisdictions.
-
-## Registered Settings
-
-* TAX_SHOP_ADDRESS
-* TAX_SHOP_ADDRESS2
-* TAX_SHOP_CITY
-* TAX_SHOP_STATE
-* TAX_SHOP_POSTCODE
-* TAX_SHOP_POSTCODE_PLUS4
-* TAX_OUT_OF_STATE
-* TAX_FLAT_RATE
-* TAX_SHIPPING_ADDRESS
-* TAX_SHIPPING
-* TAX_USE_TAXCLOUD
-* TAX_USE_TAXCLOUD_AUTHORIZATION
-* TAX_TAXCLOUD_API_ID
-* TAX_TAXCLOUD_API_KEY
-
 

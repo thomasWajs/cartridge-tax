@@ -1,34 +1,15 @@
 from decimal import Decimal
-import locale
 
 from django import template
 
-from cartridge.shop.utils import set_locale
+from cartridge.shop.templatetags import shop_tags
 
 
 register = template.Library()
 
-
 @register.filter
 def currency(value):
-    """
-    Format a value as currency according to locale.
-    """
-    set_locale()
-    if not value:
-        value = 0
-    if hasattr(locale, "currency"):
-        value = locale.currency(value, grouping=True)
-    else:
-        # based on locale.currency() in python >= 2.5
-        conv = locale.localeconv()
-        value = [conv["currency_symbol"], conv["p_sep_by_space"] and " " or "",
-                (("%%.%sf" % conv["frac_digits"]) % value).replace(".",
-                    conv["mon_decimal_point"])]
-        if not conv["p_cs_precedes"]:
-            value.reverse()
-        value = "".join(value)
-    return value
+    return shop_tags.currency(value)
 
 def _order_totals(context):
     """
@@ -37,8 +18,7 @@ def _order_totals(context):
     object for email receipts, or the cart object for checkout.
     """
     if "order" in context:
-        for f in ("item_total", "shipping_total", "discount_total",
-                "tax_type", "tax_total"):
+        for f in ("item_total", "shipping_total", "discount_total", "tax_total"):
             context[f] = getattr(context["order"], f)
     else:
         context["item_total"] = context["request"].cart.total_price()
@@ -48,15 +28,13 @@ def _order_totals(context):
             context["discount_total"] = context["shipping_total"] = 0
         else:
             for f in ("shipping_type", "shipping_total",
-                    "discount_total", "tax_type", "tax_total"):
+                    "discount_total", "tax_total"):
                 context[f] = context["request"].session.get(f, None)
     context["order_total"] = context.get("item_total", None)
     if context.get("shipping_total", None) is not None:
         context["order_total"] += Decimal(str(context["shipping_total"]))
     if context.get("discount_total", None) is not None:
         context["order_total"] -= context["discount_total"]
-    if context.get("tax_total", None) is not None:
-        context["order_total"] += Decimal(str(context["tax_total"]))
     return context
 
 

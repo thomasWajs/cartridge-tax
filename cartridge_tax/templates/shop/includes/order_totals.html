@@ -1,6 +1,6 @@
 {% load tax_tags i18n %}
 <div class="order-totals">
-	{% if discount_total or shipping_total %}
+	{% if discount_total or shipping_total != None %}
 	<div><label>{% trans "Sub total" %}:</label> {{ item_total|currency }}</div>
 	{% endif %}
 	{% if discount_total %}
@@ -14,7 +14,7 @@
 	    </label>{{ discount_total|currency }}
 	</div>
 	{% endif %}
-	{% if shipping_total %}
+	{% if shipping_total != None%}
 	<div>
 	    <label>
 	    {% if shipping_type %}
@@ -24,30 +24,22 @@
 	    {% endif %}
 	    </label> {{ shipping_total|currency }}
 	</div>
-	{% endif %}
-  {% if tax_total %}
+    {% endif %}
+  
+	<div class="total"><label>{% trans "Total" %}:</label> {{ order_total|currency }}</div>
+	
+	{% if tax_total %}
 	<div>
-      <label>
-	    {% if tax_type %}
-	    {{ tax_type }}:
-	    {% else %}
-	    {% trans "Sales Tax" %}:
-	    {% endif %}
+		<label>
+	    {% trans "Dont TVA" %}:
 	    </label> {{ tax_total|currency }}
 	</div>
-
-  <div class="total"><label>{% trans "Total" %}:</label> {{ order_total|currency }}</div>
-  {% else %}
+	{% elif order.tax_total %}
 	<div>
-      <label>
-	    {% if order.tax_type %}
-	    {{ order.tax_type }}:
-	    {% else %}
-	    {% trans "Sales Tax" %}:
-	    {% endif %}
+		<label>
+	    {% trans "Dont TVA" %}:
 	    </label> {{ order.tax_total|currency }}
 	</div>
-  <div class="total"><label>{% trans "Total" %}:</label> {{ order.total|currency }}</div>
-	{% endif %}
+	{%endif%}
 
 </div>
