@@ -9,4 +9,3 @@ register_setting(
         editable=True,
         default=19.6,
 )
-

@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-10 10:00+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: .\checkout.py:25
+msgid "Flat rate shipping"
+msgstr ""
+
+#: .\defaults.py:7
+msgid "Default VAT Rate"
+msgstr "Taux de TVA par défaut"
+
+#: .\defaults.py:8
+msgid "Tax rate that will be used for new products"
+msgstr "Ce taux sera utilisé pour les nouveaux articles"
+
+#: .\templates\shop\checkout.html.py:4 .\templates\shop\checkout.html.py:5
+msgid "Checkout"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:5
+msgid "Step"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:5
+msgid "of"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:26
+msgid "Complete"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:46
+msgid "Edit Cart"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:59
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:70
+msgid "Next"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:72
+msgid "Back"
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:77
+msgid "Your cart is empty."
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:78
+msgid ""
+"This may be due to your session timing out after a period of inactivity."
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:79
+msgid "We apologize for the inconvenience."
+msgstr ""
+
+#: .\templates\shop\checkout.html.py:81
+msgid "Continue Shopping"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:5
+msgid "Order ID:"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:10
+msgid "Your Details"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:13
+msgid "Billing Details"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:14
+msgid "Shipping Details"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:34
+msgid "Items Ordered"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:37
+msgid "Item"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:38
+msgid "Unit Price"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:39
+msgid "Qty"
+msgstr ""
+
+#: .\templates\shop\includes\order_details.html.py:40
+msgid "VAT Rate"
+msgstr "Taux de TVA"
+
+#: .\templates\shop\includes\order_details.html.py:41
+msgid "Price"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.html.py:4
+#: .\templates\shop\includes\order_totals.txt.py:3
+msgid "Sub total"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.html.py:12
+#: .\templates\shop\includes\order_totals.txt.py:5
+msgid "Discount"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.html.py:23
+#: .\templates\shop\includes\order_totals.txt.py:7
+msgid "Shipping"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.html.py:29
+#: .\templates\shop\includes\order_totals.txt.py:10
+#: .\templates\shop\includes\order_totals.txt.py:14
+msgid "Total"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.html.py:34
+#: .\templates\shop\includes\order_totals.html.py:40
+msgid "Including VAT"
+msgstr "Dont TVA"
+
+#: .\templates\shop\includes\order_totals.txt.py:9
+msgid "Sales Tax"
+msgstr ""
+
+#: .\templates\shop\includes\order_totals.txt.py:12
+msgid "SalesTax"
+msgstr ""

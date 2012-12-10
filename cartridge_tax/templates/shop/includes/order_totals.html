@@ -31,13 +31,13 @@
 	{% if tax_total %}
 	<div>
 		<label>
-	    {% trans "Dont TVA" %}:
+	    {% trans "Including VAT" %}:
 	    </label> {{ tax_total|currency }}
 	</div>
 	{% elif order.tax_total %}
 	<div>
 		<label>
-	    {% trans "Dont TVA" %}:
+	    {% trans "Including VAT" %}:
 	    </label> {{ order.tax_total|currency }}
 	</div>
 	{%endif%}
